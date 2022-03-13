@@ -1,4 +1,4 @@
-const PORT = 8000
+const PORT = process.env.PORT || 8000
 const express = require('express')
 const axios = require('axios')
 const cheerio = require('cheerio')
@@ -87,8 +87,8 @@ newspapers.forEach(newspaper => {
                     title,
                     url: newspaper.base + url,
                     source: newspaper.name,
-                })  
-            })            
+                })
+            })
         })
 
 })
@@ -114,7 +114,7 @@ app.get('/news/:newspaperId', async (req, res) => {
             const $ = cheerio.load(html)
             const specificArticles = []
 
-            $('a:contains("climate")', html).each(function() {
+            $('a:contains("climate")', html).each(function () {
                 const title = $(this).text()
                 const url = $(this).attr('href')
                 specificArticles.push({
